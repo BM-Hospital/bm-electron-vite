@@ -62,7 +62,7 @@ Validator plugins check required options such as entry points.
 
 ## Docs
 
-User-facing docs come in English and Vietnamese: `README.md` / `README.vi.md` and `CONTRIBUTING.md` / `CONTRIBUTING.vi.md`. When you change one, update the other in the same change. GitHub templates under `.github/` and `CHANGELOG.md` are English only.
+User-facing docs come in English and Vietnamese: `README.md` (Vietnamese, shown on GitHub and npm) / `README-en.md` (English) and `CONTRIBUTING.md` / `CONTRIBUTING.vi.md`. When you change one, update the other in the same change. GitHub templates under `.github/` and `CHANGELOG.md` are English only.
 
 The docs site lives in `docs/`: config in `docs/.vitepress/config.ts`, pages under `docs/docs/` (`srcDir`). It has `en` (root) and `vi` locales, and Vietnamese pages go under `docs/docs/vi/` with the same paths as the English ones. Sidebar and nav entries are defined once, with both labels, in `config.ts`. If you add a page, register it there and write both language versions.
 

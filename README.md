@@ -5,7 +5,7 @@
 <div align="center">
   <h1>bm-electron-vite</h1>
 </div>
-<p align="center">Next generation Electron build tooling based on Vite</p>
+<p align="center">Công cụ build Electron thế hệ mới dựa trên Vite</p>
 
 <p align="center">
 <img src="https://img.shields.io/npm/v/bm-electron-vite?color=6988e6&label=version">
@@ -13,51 +13,51 @@
 </p>
 
 <p align="center">
-<a href="https://electron-vite.org">Documentation (upstream)</a> |
-<a href="https://electron-vite.org/guide">Getting Started</a> |
-<a href="https://github.com/BM-Hospital/bm-electron-vite/issues">Issues</a>
+<a href="https://electron-vite.org">Tài liệu (upstream, tiếng Anh)</a> |
+<a href="https://electron-vite.org/guide">Bắt đầu</a> |
+<a href="https://github.com/BM-Hospital/bm-electron-vite/issues">Báo lỗi</a>
 </p>
 
 <p align="center">
-<b>English</b> | <a href="./README.vi.md">Tiếng Việt</a>
+<a href="./README-en.md">English</a> | <b>Tiếng Việt</b>
 </p>
 
 <br />
 
-> `bm-electron-vite` is a fork of [alex8088/electron-vite](https://github.com/alex8088/electron-vite) maintained by BM-Hospital. Config, plugins and CLI behave the same as upstream, so the [upstream documentation](https://electron-vite.org) applies. See [Differences from upstream](#differences-from-upstream).
+> `bm-electron-vite` là bản fork của [alex8088/electron-vite](https://github.com/alex8088/electron-vite), do BM-Hospital duy trì. Cấu hình, plugin và CLI hoạt động giống upstream, nên có thể dùng [tài liệu upstream](https://electron-vite.org). Xem [Khác biệt so với upstream](#khác-biệt-so-với-upstream).
 
-## Features
+## Tính năng
 
-- ⚡️ [Vite](https://vitejs.dev) powered and use the same way.
-- 🛠 Pre-configure with sensible defaults optimized for Electron.
-- 💡 Optimize asset handling for Electron main process.
-- 🚀 Fast HMR & hot reloading.
-- 🔥 Isolated build for multi-entry application development.
-- ✨ Simplify multi-threading development.
-- 🔒 Compile code to v8 bytecode to protect source code.
-- 🔌 Easy to debug in IDEs such as VSCode or WebStorm.
-- 📦 Out-of-the-box support for TypeScript, Vue, React, Svelte, SolidJS and more.
+- ⚡️ Chạy trên [Vite](https://vitejs.dev), cách dùng y hệt Vite.
+- 🛠 Cấu hình sẵn với các giá trị mặc định tối ưu cho Electron.
+- 💡 Tối ưu xử lý asset cho main process của Electron.
+- 🚀 HMR và hot reload nhanh.
+- 🔥 Build tách biệt cho ứng dụng nhiều entry.
+- ✨ Đơn giản hoá phát triển đa luồng (worker).
+- 🔒 Biên dịch code sang V8 bytecode để bảo vệ mã nguồn.
+- 🔌 Dễ debug trong IDE như VSCode hoặc WebStorm.
+- 📦 Hỗ trợ sẵn TypeScript, Vue, React, Svelte, SolidJS và nhiều framework khác.
 
-## Differences from upstream
+## Khác biệt so với upstream
 
-- Published as `bm-electron-vite`. The CLI command is still `electron-vite`, so existing npm scripts keep working.
-- Supports Electron 42+, which downloads its binary on the first `require('electron')` instead of in a `postinstall` script.
-- Build targets for Electron 45.
-- Bytecode compilation locates its helper scripts relative to the installed package, so it works under any package name.
+- Publish với tên `bm-electron-vite`. Lệnh CLI vẫn là `electron-vite`, nên các npm script hiện có vẫn chạy được.
+- Hỗ trợ Electron 42+: binary được tải về ở lần `require('electron')` đầu tiên thay vì trong script `postinstall`.
+- Có sẵn target build cho Electron 45.
+- Bước biên dịch bytecode tìm các script hỗ trợ theo vị trí package đã cài, nên chạy được dưới bất kỳ tên package nào.
 
-## Usage
+## Sử dụng
 
-### Install
+### Cài đặt
 
 ```sh
 npm i bm-electron-vite -D
 ```
 
-Requires Node.js `^20.19.0 || >=22.12.0` and `vite` 6, 7 or 8.
+Yêu cầu Node.js `^20.19.0 || >=22.12.0` và `vite` 6, 7 hoặc 8.
 
-### Development & Build
+### Phát triển & Build
 
-In a project where `bm-electron-vite` is installed, you can use the `electron-vite` binary directly with `npx electron-vite` or add the npm scripts to your `package.json` file like this:
+Trong project đã cài `bm-electron-vite`, bạn có thể gọi trực tiếp lệnh `electron-vite` bằng `npx electron-vite`, hoặc thêm npm script vào `package.json` như sau:
 
 ```json
 {
@@ -69,9 +69,9 @@ In a project where `bm-electron-vite` is installed, you can use the `electron-vi
 }
 ```
 
-### Configuration
+### Cấu hình
 
-When running `electron-vite` from the command line, it will automatically try to resolve a config file named `electron.vite.config.js` (or `.ts`, `.mjs`, `.cjs`, `.mts`, `.cts`) inside the project root. The most basic config file looks like this:
+Khi chạy `electron-vite` từ dòng lệnh, công cụ sẽ tự tìm file cấu hình tên `electron.vite.config.js` (hoặc `.ts`, `.mjs`, `.cjs`, `.mts`, `.cts`) ở thư mục gốc của project. File cấu hình cơ bản nhất trông như sau:
 
 ```ts
 // electron.vite.config.ts
@@ -79,18 +79,18 @@ import { defineConfig } from 'bm-electron-vite'
 
 export default defineConfig({
   main: {
-    // vite config options
+    // tuỳ chọn cấu hình vite
   },
   preload: {
-    // vite config options
+    // tuỳ chọn cấu hình vite
   },
   renderer: {
-    // vite config options
+    // tuỳ chọn cấu hình vite
   }
 })
 ```
 
-For the special import suffixes (`?asset`, `?modulePath`, `?nodeWorker`, ...), add the client types to your `tsconfig.json`:
+Để dùng các hậu tố import đặc biệt (`?asset`, `?modulePath`, `?nodeWorker`, ...), thêm kiểu dữ liệu vào `tsconfig.json`:
 
 ```json
 {
@@ -100,9 +100,9 @@ For the special import suffixes (`?asset`, `?modulePath`, `?nodeWorker`, ...), a
 }
 ```
 
-### Source code protection
+### Bảo vệ mã nguồn
 
-Set `build.bytecode` on `main` and/or `preload` to compile their output to V8 bytecode during `electron-vite build`. The output format must be CommonJS. Bytecode is tied to the Electron version and CPU architecture it was built with, so rebuild for each target.
+Đặt `build.bytecode` cho `main` và/hoặc `preload` để biên dịch output sang V8 bytecode khi chạy `electron-vite build`. Output phải ở định dạng CommonJS. Bytecode gắn với phiên bản Electron và kiến trúc CPU lúc build, nên cần build lại cho từng môi trường đích.
 
 ```ts
 export default defineConfig({
@@ -115,20 +115,20 @@ export default defineConfig({
 })
 ```
 
-See [Source Code Protection](https://electron-vite.org/guide/source-code-protection) for all options.
+Bytecode chỉ làm mã nguồn khó đọc hơn, không phải mã hoá: đừng để secret quan trọng trong app. Xem đầy đủ các tuỳ chọn tại [Source Code Protection](https://electron-vite.org/guide/source-code-protection).
 
-### Getting Started
+### Bắt đầu nhanh
 
-Scaffold a project with [create-electron](https://github.com/alex8088/quick-start/tree/master/packages/create-electron), then replace the `electron-vite` dev dependency with `bm-electron-vite` and change config imports from `'electron-vite'` to `'bm-electron-vite'`.
+Tạo project bằng [create-electron](https://github.com/alex8088/quick-start/tree/master/packages/create-electron), sau đó thay dev dependency `electron-vite` bằng `bm-electron-vite` và đổi import trong file cấu hình từ `'electron-vite'` thành `'bm-electron-vite'`.
 
 ```bash
 npm create @quick-start/electron@latest
 ```
 
-## Contribution
+## Đóng góp
 
-See [Contributing Guide](CONTRIBUTING.md).
+Xem [Hướng dẫn đóng góp](CONTRIBUTING.vi.md).
 
-## License
+## Giấy phép
 
-[MIT](./LICENSE) © alex.wei. Fork maintained by [BM-Hospital](https://github.com/BM-Hospital).
+[MIT](./LICENSE) © alex.wei. Bản fork do [BM-Hospital](https://github.com/BM-Hospital) duy trì.
