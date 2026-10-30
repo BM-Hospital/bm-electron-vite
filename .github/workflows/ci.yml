@@ -26,6 +26,8 @@ jobs:
       - run: pnpm typecheck
       # Also runs lint
       - run: pnpm build
+      # Fails on dead links
+      - run: pnpm docs:build
 
   bytecode:
     name: Bytecode end-to-end

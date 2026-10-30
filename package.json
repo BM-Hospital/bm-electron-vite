@@ -24,7 +24,7 @@
     "node": "^20.19.0 || >=22.12.0"
   },
   "packageManager": "pnpm@10.34.9",
-  "author": "Alex Wei<https://github.com/alex8088>",
+  "author": "hunghg255",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -46,7 +46,10 @@
     "lint": "oxlint",
     "typecheck": "tsc --noEmit",
     "build": "pnpm run lint && rolldown -c rolldown.config.ts",
-    "test:bytecode": "node scripts/testBytecode.js"
+    "test:bytecode": "node scripts/testBytecode.js",
+    "docs:dev": "pnpm --filter ./docs dev",
+    "docs:build": "pnpm --filter ./docs build",
+    "docs:preview": "pnpm --filter ./docs serve"
   },
   "simple-git-hooks": {
     "pre-commit": "npx lint-staged",
