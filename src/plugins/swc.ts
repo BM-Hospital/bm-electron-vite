@@ -1,5 +1,5 @@
 import { createRequire } from 'node:module'
-import type { SourceMap } from 'rollup'
+import type { SourceMap } from 'rolldown'
 import type { TransformConfig, Output as TransformResult, JscConfig } from '@swc/core'
 import type { Plugin, UserConfig, FilterPattern } from 'vite'
 import { createFilter } from 'vite'
