@@ -11,7 +11,9 @@ import { fileURLToPath } from 'node:url'
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const fixture = path.join(root, 'test/bytecode-app')
-const workDir = fs.mkdtempSync(path.join(os.tmpdir(), 'bm-electron-vite-bytecode-'))
+// Expand Windows 8.3 short paths (e.g. C:\Users\RUNNER~1 on CI): Vite resolves module ids to
+// long paths, and a short-path root makes the renderer HTML output path escape the out dir.
+const workDir = fs.mkdtempSync(path.join(fs.realpathSync.native(os.tmpdir()), 'bm-electron-vite-bytecode-'))
 const appDir = path.join(workDir, 'app')
 const electronVersion = process.env.ELECTRON_VERSION || 'latest'
 
