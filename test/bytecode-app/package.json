@@ -1,0 +1,6 @@
+{
+  "name": "bytecode-app",
+  "private": true,
+  "version": "1.0.0",
+  "main": "./out/main/index.js"
+}

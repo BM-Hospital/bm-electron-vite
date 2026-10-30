@@ -45,7 +45,8 @@
     "format:check": "oxfmt --check",
     "lint": "oxlint",
     "typecheck": "tsc --noEmit",
-    "build": "pnpm run lint && rolldown -c rolldown.config.ts"
+    "build": "pnpm run lint && rolldown -c rolldown.config.ts",
+    "test:bytecode": "node scripts/testBytecode.js"
   },
   "simple-git-hooks": {
     "pre-commit": "npx lint-staged",
