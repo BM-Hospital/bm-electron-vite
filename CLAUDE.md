@@ -17,9 +17,10 @@ pnpm is required (`pnpm install`).
 - `pnpm format`: Oxfmt write (`pnpm format:check` to check only)
 - `pnpm build`: runs lint, then Rolldown (`rolldown.config.ts`). This outputs `dist/index.js`, `dist/cli.js`, shared chunks in `dist/chunks/`, and one bundled `dist/index.d.ts` (via `rolldown-plugin-dts`).
 
-- `pnpm test:bytecode`: end-to-end bytecode check (`scripts/testBytecode.js`). Run `pnpm build` first. It packs the package, installs it into a temp copy of `test/bytecode-app`, builds with `build.bytecode`, runs the app in Electron, and checks the output. It downloads Electron (`ELECTRON_VERSION` pins the version, default `latest`) and needs a display, so it is a manual check, not CI.
+- `pnpm test:bytecode`: end-to-end bytecode check (`scripts/testBytecode.js`). Run `pnpm build` first. It packs the package, installs it into a temp copy of `test/bytecode-app`, builds with `build.bytecode`, runs the app in Electron, and checks the output. It downloads Electron (`ELECTRON_VERSION` pins the version, default `latest`) and needs a display. CI runs it on `windows-latest`, which has one.
+- `pnpm docs:dev` / `docs:build` / `docs:preview`: the VitePress docs site, a separate workspace package in `docs/` (see `pnpm-workspace.yaml`).
 
-There is no unit test suite. Before a PR, run `pnpm lint && pnpm typecheck`, and run `pnpm test:bytecode` when touching bytecode, `src/electron.ts` or the build config. To check other behavior, build and then run the CLI against a separate Electron project (for example by installing a `pnpm pack` tarball).
+There is no unit test suite. CI (`.github/workflows/ci.yml`) runs `format:check`, `typecheck`, `build` (with lint) and `docs:build` on ubuntu, then `test:bytecode` on windows. Before a PR, run `pnpm format:check && pnpm lint && pnpm typecheck`, and run `pnpm test:bytecode` when touching bytecode, `src/electron.ts` or the build config. To check other behavior, build and then run the CLI against a separate Electron project (for example by installing a `pnpm pack` tarball).
 
 Git hooks (simple-git-hooks) run lint-staged (oxlint + oxfmt) on pre-commit. They also check commit messages with `scripts/verifyCommit.js`, which expects `type(scope): subject` matching `^(revert: )?(feat|fix|docs|dx|style|refactor|perf|test|workflow|build|ci|chore|types|wip|release)(\(.+\))?!?: .{1,50}`. See `.github/commit-convention.md`.
 
@@ -62,6 +63,8 @@ Validator plugins check required options such as entry points.
 ## Docs
 
 User-facing docs come in English and Vietnamese: `README.md` / `README.vi.md` and `CONTRIBUTING.md` / `CONTRIBUTING.vi.md`. When you change one, update the other in the same change. GitHub templates under `.github/` and `CHANGELOG.md` are English only.
+
+The docs site lives in `docs/`: config in `docs/.vitepress/config.ts`, pages under `docs/docs/` (`srcDir`). It has `en` (root) and `vi` locales, and Vietnamese pages go under `docs/docs/vi/` with the same paths as the English ones. Sidebar and nav entries are defined once, with both labels, in `config.ts`. If you add a page, register it there and write both language versions.
 
 ## Code style
 
