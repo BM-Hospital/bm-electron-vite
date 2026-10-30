@@ -11,6 +11,7 @@
 - refactor: remove unused `bin/electron-bytecode.cjs`
 - build: bundle with Rolldown instead of Rollup
 - build: replace ESLint with Oxlint and Prettier with Oxfmt
+- build: upgrade TypeScript to 7 (native compiler)
 - test: add `pnpm test:bytecode` end-to-end bytecode check
 
 ### v6.0.0 (_2026-10-15_)

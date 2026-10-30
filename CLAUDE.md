@@ -13,7 +13,7 @@ It is a build tool and CLI (not an app). It wraps Vite so a single `electron.vit
 pnpm is required (`pnpm install`).
 
 - `pnpm lint`: Oxlint (config in `.oxlintrc.json`)
-- `pnpm typecheck`: `tsc --noEmit`
+- `pnpm typecheck`: `tsc --noEmit`. TypeScript is 7.x, the native (Go) compiler: it has no JavaScript API, so `require('typescript')` cannot be used in scripts. `rolldown-plugin-dts` uses its `tsgo` backend.
 - `pnpm format`: Oxfmt write (`pnpm format:check` to check only)
 - `pnpm build`: runs lint, then Rolldown (`rolldown.config.ts`). This outputs `dist/index.js`, `dist/cli.js`, shared chunks in `dist/chunks/`, and one bundled `dist/index.d.ts` (via `rolldown-plugin-dts`).
 
