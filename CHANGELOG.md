@@ -1,3 +1,19 @@
+### Unreleased
+
+- feat: publish as `bm-electron-vite`, fork maintained at [BM-Hospital/bm-electron-vite](https://github.com/BM-Hospital/bm-electron-vite)
+- feat: support Electron 42+ binary download on first `require('electron')`
+- perf: build compatibility target for Electron 45
+- fix(bytecode): locate the bytecode compiler relative to the installed package instead of by package name
+- fix: clearer error when Electron is not installed
+- fix(dev): exit non-zero when the initial main/preload build fails, also in watch mode
+- fix(dev): do not restart Electron or reload the renderer after a failed rebuild in watch mode
+- fix: restore the CommonJS loader hook when loading the config file throws
+- refactor: remove unused `bin/electron-bytecode.cjs`
+- build: bundle with Rolldown instead of Rollup
+- build: replace ESLint with Oxlint and Prettier with Oxfmt
+- build: upgrade TypeScript to 7 (native compiler)
+- test: add `pnpm test:bytecode` end-to-end bytecode check
+
 ### v6.0.0 (_2026-10-15_)
 
 - feat(bytecode): support RegExp for chunkAlias option ([#885](https://github.com/alex8088/electron-vite/issues/885))

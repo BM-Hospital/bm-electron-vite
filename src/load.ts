@@ -123,8 +123,12 @@ export async function loadConfigFormBundledFile<T>(fileName: string, bundledCode
       }
     }
     delete _require.cache[_require.resolve(fileName)]
-    const raw = _require(fileName)
-    _require.extensions[loaderExt] = defaultLoader
-    return raw.__esModule ? raw.default : raw
+    try {
+      const raw = _require(fileName)
+      return raw.__esModule ? raw.default : raw
+    } finally {
+      // Restore the global loader even when the config throws
+      _require.extensions[loaderExt] = defaultLoader
+    }
   }
 }

@@ -24,10 +24,6 @@ export async function createServer(
     let server: ViteDevServer | undefined
     let ps: ChildProcess | undefined
 
-    const errorHook = (e): void => {
-      logger.error(`${colors.bgRed(colors.white(' ERROR '))} ${colors.red(e.message)}`)
-    }
-
     const mainViteConfig = config.config?.main
     if (mainViteConfig && !options.rendererOnly) {
       const watchHook = (): void => {
@@ -42,7 +38,7 @@ export async function createServer(
         }
       }
 
-      await doBuild(mainViteConfig, watchHook, errorHook)
+      await doBuild(mainViteConfig, watchHook)
 
       logger.info(colors.green(`\nelectron main process built successfully`))
     }
@@ -61,7 +57,7 @@ export async function createServer(
         }
       }
 
-      await doBuild(preloadViteConfig, watchHook, errorHook)
+      await doBuild(preloadViteConfig, watchHook)
 
       logger.info(colors.green(`\nelectron preload scripts built successfully`))
     }
@@ -108,15 +104,17 @@ export async function createServer(
 
 type UserConfig = ViteConfig & { configFile?: string | false }
 
-async function doBuild(config: UserConfig, watchHook: () => void, errorHook: (e: Error) => void): Promise<void> {
-  return new Promise(resolve => {
+async function doBuild(config: UserConfig, watchHook: () => void): Promise<void> {
+  return new Promise((resolve, reject) => {
     if (config.build?.watch) {
       let firstBundle = true
-      const closeBundle = (): void => {
+      // Rolldown calls closeBundle even when the build fails, passing the error
+      const closeBundle = (error?: Error): void => {
         if (firstBundle) {
           firstBundle = false
-          resolve()
-        } else {
+          if (error) reject(error)
+          else resolve()
+        } else if (!error) {
           watchHook()
         }
       }
@@ -137,6 +135,7 @@ async function doBuild(config: UserConfig, watchHook: () => void, errorHook: (e:
           resolve()
         }
       })
-      .catch(e => errorHook(e))
+      // Surface build failures so the CLI logs them and exits non-zero
+      .catch(reject)
   })
 }

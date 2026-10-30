@@ -1,9 +1,9 @@
 import { type ChildProcess, spawn } from 'node:child_process'
+import fs from 'node:fs'
 import path from 'node:path'
-import { createRequire } from 'node:module'
+import { fileURLToPath } from 'node:url'
 import { getElectronPath } from './electron'
 
-const require = createRequire(import.meta.url)
 const RPC_TIMEOUT = 30_000
 const SHUTDOWN_TIMEOUT = 3_000
 
@@ -20,6 +20,18 @@ type CompilerResponse = {
   invocationId: number
   result?: unknown
   error?: { name: string; message: string; stack?: string }
+}
+
+// Locate bin/ from this file rather than by package name, so a renamed or
+// self-linked package still resolves; works from both dist/ and dist/chunks/.
+function resolveCompilerPath(): string {
+  let dir = path.dirname(fileURLToPath(import.meta.url))
+  while (!fs.existsSync(path.join(dir, 'package.json'))) {
+    const parent = path.dirname(dir)
+    if (parent === dir) throw new Error('Cannot locate the electron-vite package root')
+    dir = parent
+  }
+  return path.join(dir, 'bin', 'electron-bytecode-main.cjs')
 }
 
 type PendingRequest = {
@@ -52,12 +64,7 @@ export class BytecodeCompiler {
     const env: NodeJS.ProcessEnv = { ...process.env, ELECTRON_VITE_RPC: 'true' }
     delete env.ELECTRON_RUN_AS_NODE
     this.stderr = ''
-    const compilerPath = path.join(
-      path.dirname(require.resolve('electron-vite/package.json')),
-      'bin',
-      'electron-bytecode-main.cjs'
-    )
-    const ps = spawn(getElectronPath(), [compilerPath], {
+    const ps = spawn(getElectronPath(), [resolveCompilerPath()], {
       stdio: ['ignore', 'ignore', 'pipe', 'ipc'],
       windowsHide: true,
       env
